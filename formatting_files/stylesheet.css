@@ -1,13 +1,13 @@
 body {
-    background-color:rgb(108, 19, 175); 
+    background-color:#212f4d;
     font-family: "Comic Sans MS", "Comic Sans", Sans-serif;
     padding: 0;
 } h3 {
-    color:rgb(180, 109, 3); 
+    color:#ffffff;
     text-align: center;
     line-height: 0.8em;
     margin-top: 0;
     margin-bottom: 0;
 } a {
-    color:rgb(15, 102, 14); 
+    color: #7c87ef;
 } 
