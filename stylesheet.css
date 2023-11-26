@@ -4,32 +4,32 @@ html {
     height: 100%;
 } body {
     height:100%;
-    background-color:rgb(108, 19, 175); 
+    background-color:#111827;
     font-family: "Comic Sans MS", "Comic Sans", Sans-serif;
     padding: 0;
 } h1 {
-    color:rgb(180, 109, 3); 
+    color:rgb(130, 179, 240); 
     text-align: center;
 } h2, h3 {
-    color:rgb(180, 109, 3); 
+    color:rgb(255, 255, 255);  
     text-align: center;
     line-height: 0.8em;
     margin-top: 40px;
     margin-bottom: 0;
 } h5 {
-    color:rgb(180, 109, 3); 
+    color:rgb(255, 255, 255);  
 } p{
-    color:rgb(180, 109, 3); 
+    color:rgb(197, 143, 244); 
     text-align: justify;
     /*size: 20px;*/
 } a {
-    color:rgb(15, 102, 14); 
+    color:rgb(180, 109, 3); 
 } iframe {
     overflow:hidden;
 } figure{
     margin: auto;
     text-align: center;
-    color:rgb(180, 109, 3); 
+    color:rgb(244, 143, 173); 
     margin-bottom: 15px;
 } figcaption {
     width: 80%;
