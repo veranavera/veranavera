@@ -28,7 +28,8 @@ body {
     margin-right: auto;
     width: 80%;
 } .number {
-    color:rgb(255, 255, 255);  
+    color:rgb(255, 255, 255); 
+    text-decoration: none; 
 } .name {
     color:rgb(180, 109, 3);
     text-decoration: none;
