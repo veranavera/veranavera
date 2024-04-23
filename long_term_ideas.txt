@@ -1,7 +1,7 @@
 Attached bellow are some ideas that I have for near-term, medium-term, and long-term work/expansions to be done on this website
 
 Near-term:
-- update the photo numbers for the 202
+- update the photo numbers for the 202 (done)
 - update peaks climbed page for new peaks
 - add photo links to peaks climbed page
 - finish 115 reports
