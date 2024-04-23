@@ -2,9 +2,9 @@ Attached bellow are some ideas that I have for near-term, medium-term, and long-
 
 Near-term:
 - update the photo numbers for the 202 (done)
-- update peaks climbed page for new peaks
-- add photo links to peaks climbed page
-- finish 115 reports
+- update peaks climbed page for new peaks (done)
+- add photo links to peaks climbed page (done)
+- finish 115 reports (done)
 - finish miscellaneous reports
 - physical backup of website
 
