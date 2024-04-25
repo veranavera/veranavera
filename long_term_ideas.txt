@@ -5,7 +5,7 @@ Near-term:
 - update peaks climbed page for new peaks (done)
 - add photo links to peaks climbed page (done)
 - finish 115 reports (done)
-- finish miscellaneous reports
+- finish miscellaneous reports (done)
 - physical backup of website
 
 Medium-term:
