@@ -16,9 +16,9 @@ def count_total_peaks():
     return total
 total = count_total_peaks()
 
-def base_file_reader(base_filename):
+def base_file_reader(base_filename, directory):
     #reads base .html file for generating list of peak pages and outputs the beginning of that file
-    base_text =  Path(base_filename).read_text()
+    base_text =  Path(directory + "/" + base_filename).read_text()
     return base_text[slice(0, base_text.find(splicer))]
 
 def add_table_header(links, sortCounter):
@@ -33,16 +33,26 @@ def add_table_header(links, sortCounter):
     tableHeader += links[sortCounter][6] + "\"class=\"list\">Peak on List &#8645</a></th>\n\t\t</tr>\n\t\t"
     return tableHeader
 
-def add_table_header_reverse():
-    tableHeader = "</div>\n<div style=\"width: 100%; display: table;\">\n\t<table style=\"width:100%\">\n\t\t<tr>\n\t\t\t<th class=\"number\"><a href=\"list_of_peaks_prominence.html\" class=\"number\">Number &#8645</a></th>\n\t\t\t<th><a href=\"list_of_peaks_name.html\" class=\"name\">Name &#8645</a></th>\n\t\t\t<th><a href=\"list_of_peaks_elevation.html\" class=\"elevation\">Elevation (ft) &#8645</a></th>\n\t\t\t<th><a href=\"list_of_peaks_prominence.html\" class=\"prominence\">Prominence (ft) &#8645</a></th>\n\t\t\t<th><a href=\"list_of_peaks_isolation.html\" class=\"isolation\">Isolation (km) &#8645</a></th>\n\t\t\t<th><a href=\"list_of_peaks_date.html\" class=\"date\">Date Climbed &#8645</a></th>\n\t\t\t<th><a href=\"list_of_peaks_location.html\" class=\"location\">State &#8645</a></th>\n\t\t\t<th><a href=\"list_of_peaks_list.html\"class=\"list\">Peak on List &#8645</a></th>\n\t\t</tr>\n\t\t"
+def add_table_header_reverse(directory):
+    tableHeader = "</div>\n<div style=\"width: 100%; display: table;\">\n\t<table style=\"width:100%\">\n\t\t<tr>\n\t\t\t<th class=\"number\"><a href=\""
+    tableHeader += "list_of_peaks_prominence.html\" class=\"number\">Number &#8645</a></th>\n\t\t\t<th><a href=\""
+    tableHeader += "list_of_peaks_name.html\" class=\"name\">Name &#8645</a></th>\n\t\t\t<th><a href=\""
+    tableHeader += "list_of_peaks_elevation.html\" class=\"elevation\">Elevation (ft) &#8645</a></th>\n\t\t\t<th><a href=\""
+    tableHeader += "list_of_peaks_prominence.html\" class=\"prominence\">Prominence (ft) &#8645</a></th>\n\t\t\t<th><a href=\""
+    tableHeader += "list_of_peaks_isolation.html\" class=\"isolation\">Isolation (km) &#8645</a></th>\n\t\t\t<th><a href=\""
+    tableHeader += "list_of_peaks_date.html\" class=\"date\">Date Climbed &#8645</a></th>\n\t\t\t<th><a href=\""
+    tableHeader += "list_of_peaks_location.html\" class=\"location\">State &#8645</a></th>\n\t\t\t<th><a href=\""
+    tableHeader += "list_of_peaks_list.html\"class=\"list\">Peak on List &#8645</a></th>\n\t\t</tr>\n\t\t"
     return tableHeader
 
 def add_footer():
-    return "\n\t</table>\n</div>\n<div>\n\t<iframe class=\"page_footer\" frameBorder=\"0\" src=\"../formatting_files/footer.html\" seamless></iframe>\n</div>\n</body>"
+    return "\n\t</table>\n</div>\n<div>\n\t<iframe class=\"page_footer\" frameBorder=\"0\" src=\"../../formatting_files/footer.html\" seamless></iframe>\n</div>\n</body>"
 
-def output_row(row, counter, reverse):
+def output_row(row, counter, reverse, unranked, total):
     line = "<tr>\n\t\t\t"
-    if(reverse):
+    if(unranked):
+        line += "<th class = \"number\">" + "&#183" + "</th>\n\t\t\t"
+    elif(reverse):
         line += "<th class = \"number\">" + str(total - counter) + "</th>\n\t\t\t"
     else:
         line += "<th class = \"number\">" + str(counter) + "</th>\n\t\t\t"
@@ -56,7 +66,7 @@ def output_row(row, counter, reverse):
     line += "</tr>\n\t\t"
     return line
 
-def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse):
+def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse, list, listNumber):
     htmlData = ""
 
     with open(csv_filename, newline='') as csvfile:
@@ -74,14 +84,23 @@ def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse):
                 sortedData = sorted(data, key=operator.itemgetter(sortCounters[sortCounter]), reverse=sortOrders[sortCounter])
         counter = 1
         for row in sortedData:
-            line = output_row(row, counter, reverse)
-            htmlData += line
-            counter += 1
+            if(not list):
+                line = output_row(row, counter, reverse, False, total)
+                htmlData += line
+                counter += 1
+            elif(row[8] == list or row[8] == (list + "a")):
+                if((row[8][len(row[8]) - 1]) == "a"):
+                    line = output_row(row, counter, reverse, True, 0)
+                    counter -= 1
+                else:
+                    line = output_row(row, counter, reverse, False, listNumber)
+                htmlData += line
+                counter += 1
         
     return htmlData
 
 
-def list_of_peaks(base_filename):
+def list_of_peaks(base_filename, directory, list, listNumber):
 
     #list the parameters that the lists will sort for
     sorts = ["name", "elevation", "prominence", "isolation", "date", "location", "list"]
@@ -98,31 +117,35 @@ def list_of_peaks(base_filename):
 
     #manually input which parameters should be sorted for 
     sortCounters = [0, 2, 3, 4, 5, 7, 8]
-    sortOrders = [False, True, True, True, True, False, True]
+    #change date here for different ordering priorities
+    sortOrders = [False, True, True, True, False, False, True]
     sortTypes = [False, True, True, True, False, False, False]
     sortCounter = 0
 
     for type in sorts:
         #make normal page
-        htmlData = base_file_reader(base_filename)
+        htmlData = base_file_reader(base_filename, directory)
         htmlData += add_table_header(links, sortCounter)
-        htmlData += csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, False)
+        htmlData += csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, False, list, listNumber)
         htmlData += add_footer()
 
-        f = open("list_of_peaks_" + type + ".html", "w")
+        f = open(directory + "\list_of_peaks_" + type + ".html", "w")
         f.write(htmlData)
         f.close()
 
         #make reverse page
-        htmlData = base_file_reader(base_filename)
-        htmlData += add_table_header_reverse()
-        htmlData += csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, True)
+        htmlData = base_file_reader(base_filename, directory)
+        htmlData += add_table_header_reverse(directory)
+        htmlData += csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, True, list, listNumber)
         htmlData += add_footer()
 
-        f = open("list_of_peaks_" + type + "_reverse.html", "w")
+        f = open(directory + "\list_of_peaks_" + type + "_reverse.html", "w")
         f.write(htmlData)
         f.close()
 
         sortCounter += 1
 
-list_of_peaks("basic_list.html")
+list_of_peaks("basic_list.html", "all", "", total)
+list_of_peaks("list_of_northeast_131.html", "NE131", "NE131", 90 + 1)
+list_of_peaks("list_of_southeast_202.html", "SE202", "SE202", 202 + 1)
+list_of_peaks("list_of_northeast_115.html", "NE115", "NE115", 115 + 1)
