@@ -8,6 +8,29 @@ csv_filename = "list_of_peaks.csv"
 #define file splice point
 splicer = "<!---splicer-->"
 
+#define list column values
+list_types = {
+    "NE115": 8,
+    "SE202": 8,
+    "NE131": 8,
+    "ULTRA": 9,
+    "P3K": 10,
+    "P2K": 11,
+    "P1K": 12,
+    "STHP": 13,
+    "STPP": 14,
+    "STIP": 15,
+    "STEP": 16,
+    "NE67": 17,
+    "ADK46": 18,
+    "SE40": 19,
+    "NYFT": 20,
+    "EAP2K": 21,
+    "BEL12": 24,
+    "FUL3": 30,
+    "TUP3": 31
+}
+
 #define total number of peaks 
 def count_total_peaks():
     with open(csv_filename, newline='') as csvfile:
@@ -46,7 +69,8 @@ def add_table_header_reverse(directory):
     return tableHeader
 
 def add_footer():
-    return "\n\t</table>\n</div>\n<div>\n\t<iframe class=\"page_footer\" frameBorder=\"0\" src=\"../../formatting_files/footer.html\" seamless></iframe>\n</div>\n</body>"
+    footer = "\n\t</table>\n</div>\n<div>\n\t<iframe class=\"page_footer\" frameBorder=\"0\" src=\"../../../formatting_files/footer.html\" seamless></iframe>\n</div>\n</body>"
+    return footer
 
 def output_row(row, counter, reverse, unranked, total):
     line = "<tr>\n\t\t\t"
@@ -88,6 +112,10 @@ def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse, list, 
                 line = output_row(row, counter, reverse, False, total)
                 htmlData += line
                 counter += 1
+            elif(list_types[list] != 8 and row[list_types[list]] == "y"):
+                line = output_row(row, counter, reverse, False, listNumber)
+                htmlData += line
+                counter += 1
             elif(row[8] == list or row[8] == (list + "a")):
                 if((row[8][len(row[8]) - 1]) == "a"):
                     line = output_row(row, counter, reverse, True, 0)
@@ -98,7 +126,6 @@ def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse, list, 
                 counter += 1
         
     return htmlData
-
 
 def list_of_peaks(base_filename, directory, list, listNumber):
 
@@ -145,7 +172,42 @@ def list_of_peaks(base_filename, directory, list, listNumber):
 
         sortCounter += 1
 
-list_of_peaks("basic_list.html", "all", "", total)
-list_of_peaks("list_of_northeast_131.html", "NE131", "NE131", 90 + 1)
-list_of_peaks("list_of_southeast_202.html", "SE202", "SE202", 202 + 1)
-list_of_peaks("list_of_northeast_115.html", "NE115", "NE115", 115 + 1)
+#create list of peaks and comment the ones that are "finished"
+
+#master list
+list_of_peaks("basic_list.html", "all/all", "", total)
+
+#current project
+list_of_peaks("list_of_northeast_131.html", "project_lists/NE131", "NE131", 90 + 1)
+
+#all lists of prominence/location classes
+#list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K", 90 + 1)
+
+#state lists
+list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP", 12 + 1)
+list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP", 13 + 1)
+list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP", 13 + 1)
+list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP", 19 + 1)
+
+
+#current active official lists
+#list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT", 30 + 1)
+#list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K", 74 + 1)
+#list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20", 20 + 1)
+
+#list_of_peaks("list_of_nh_fire_towers.html", "official_lists/NHFT", "NHFT", 15 + 1)
+#list_of_peaks("list_of_lake_george_12.html", "official_lists/LG12", "LG12", 12 + 1)
+#list_of_peaks("list_of_ossipee_10.html", "official_lists/OSS10", "OSS10", 10 + 1)
+
+#previous projects
+#list_of_peaks("list_of_southeast_202.html", "project_lists/SE202", "SE202", 202 + 1)
+#list_of_peaks("list_of_northeast_115.html", "project_lists/NE115", "NE115", 115 + 1)
+
+#former official lists
+#list_of_peaks("list_of_new_england_67.html", "official_lists/NE67", "NE67", 67 + 1)
+#list_of_peaks("list_of_adirondack_46.html", "official_lists/ADK46", "ADK46", 46 + 1)
+#list_of_peaks("list_of_southern_sixers.html", "official_lists/SE40", "SE40", 40 + 1)
+
+#list_of_peaks("list_of_belknap_12.html", "official_lists/BEL12", "BEL12", 12 + 1)
+#list_of_peaks("list_of_tupper_triad.html", "official_lists/TUP3", "TUP3", 3 + 1)
+#list_of_peaks("list_of_fulton_trifecta.html", "official_lists/FUL3", "FUL3", 3 + 1)

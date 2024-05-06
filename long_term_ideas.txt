@@ -10,18 +10,18 @@ Near-term:
 
 Medium-term:
 - streamline and expand back end
-    - create html pages for main lists
-    - create pages for official lists
-    - create high point pages
+    - create html pages for main lists (done)
+    - create pages for official lists (done)
+    - create high point pages (done)
     - update main page w/new reports
     - procedurally generate trip report page
-- create project pages for main lists
+- create project pages for main lists (done)
 
 Long-term:
 - add blog posts header
     - page on displaying vs planting flags
     - statement of purpose of project
     - statement of history of personal project
-- east/west divider for peaks climbed page
-- P2k/P5k pages for peaks climbed page
+- east/west divider for peaks climbed page (easily doable, not for rn)
+- P2k/P5k pages for peaks climbed page (easily doable, not for rn)
 - add long/lat to peaks climbed page
