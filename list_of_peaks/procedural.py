@@ -184,11 +184,10 @@ list_of_peaks("list_of_northeast_131.html", "project_lists/NE131", "NE131", 90 +
 #list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K", 90 + 1)
 
 #state lists
-list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP", 12 + 1)
-list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP", 13 + 1)
-list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP", 13 + 1)
-list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP", 19 + 1)
-
+#list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP", 12 + 1)
+#list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP", 13 + 1)
+#list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP", 13 + 1)
+#list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP", 19 + 1)
 
 #current active official lists
 #list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT", 30 + 1)
