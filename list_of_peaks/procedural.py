@@ -1,6 +1,7 @@
 import csv
 import operator
 from pathlib import Path
+from datetime import datetime
 
 #define data filename
 csv_filename = "list_of_peaks.csv"
@@ -26,7 +27,14 @@ list_types = {
     "SE40": 19,
     "NYFT": 20,
     "EAP2K": 21,
+    "VT35": 22,
+    "CT35": 23,
     "BEL12": 24,
+    "OSS10": 25,
+    "NHFT": 26,
+    "NEK20": 27,
+    "LG12": 28,
+    "SAR6": 29,
     "FUL3": 30,
     "TUP3": 31
 }
@@ -128,7 +136,7 @@ def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse, list, 
     return htmlData
 
 def list_of_peaks(base_filename, directory, list, listNumber):
-
+    
     #list the parameters that the lists will sort for
     sorts = ["name", "elevation", "prominence", "isolation", "date", "location", "list"]
 
@@ -172,6 +180,26 @@ def list_of_peaks(base_filename, directory, list, listNumber):
 
         sortCounter += 1
 
+def update_main_page(base_filename):
+    #reads base .html file for generating list of peak pages and outputs the beginning of that file
+    baseText =  Path(base_filename).read_text()
+    date = datetime.today().strftime('%Y-%m-%d')
+    dateIndex = baseText.find("<!---date-->")
+    outputText = baseText[:dateIndex - 10] + date + baseText[dateIndex:]
+    firstTotalIndex = outputText.find("<!---firstTotal-->")
+    outputText = outputText[:firstTotalIndex - 3] + str(total - 1) + outputText[firstTotalIndex:]
+    secondTotalIndex = outputText.find("<!---secondTotal-->")
+    outputText = outputText[:secondTotalIndex - 3] + str(total - 1) + outputText[secondTotalIndex:]
+    thirdTotalIndex = outputText.find("<!---thirdTotal-->")
+    outputText = outputText[:thirdTotalIndex - 3] + str(total - 1) + outputText[thirdTotalIndex:]
+
+    f = open(base_filename, "w")
+    f.write(outputText)
+    f.close()
+
+#update main page
+update_main_page("../index.html")
+
 #create list of peaks and comment the ones that are "finished"
 
 #master list
@@ -184,14 +212,16 @@ list_of_peaks("list_of_northeast_131.html", "project_lists/NE131", "NE131", 90 +
 #list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K", 90 + 1)
 
 #state lists
+#list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP", 20 + 1)
 #list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP", 12 + 1)
 #list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP", 13 + 1)
-#list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP", 13 + 1)
-#list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP", 19 + 1)
+#list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP", 11 + 1)
 
 #current active official lists
-#list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT", 30 + 1)
 #list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K", 74 + 1)
+#list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT", 30 + 1)
+#list_of_peaks("list_of_catskill_35.html", "official_lists/CT35", "CT35", 33 + 1)
+#list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35", 30 + 1)
 #list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20", 20 + 1)
 
 #list_of_peaks("list_of_nh_fire_towers.html", "official_lists/NHFT", "NHFT", 15 + 1)
