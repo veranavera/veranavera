@@ -2,6 +2,7 @@ import csv
 import operator
 from pathlib import Path
 from datetime import datetime
+import os
 
 #define data filename
 csv_filename = "list_of_peaks.csv"
@@ -11,6 +12,8 @@ splicer = "<!---splicer-->"
 
 #define list column values
 list_types = {
+    "EAST": 7,
+    "WEST": 7,
     "NE115": 8,
     "SE202": 8,
     "NE131": 8,
@@ -39,13 +42,35 @@ list_types = {
     "TUP3": 31
 }
 
+#define eastern/western regions of North America
+    #with true meaning eastern and vice versa
+regions = {
+    "ME": True, "NH": True, "VT": True, "MA": True, "RI": True, "CT": True, "NY": True, "NJ": True, "PA": True, "DE": True, "MD": True, "VA": True, "VA/WV": True, "NC": True, "NC/TN": True, "SC": True, "GA": True, "FL": True, "AL": True, "MS": True, "LA": True, "AR": True, "TN": True, "KY": True,"KY/VA": True, "WV": True, "OH": True, "MI": True, "IN": True, "IL": True, "MO": True, "WI": True, "IA": True, "MN": True, "ND": True, "SD": True, "NE": True, "KS": True, "OK": True, "NL": True, "PE": True, "NS": True, "NB": True, "QC": True, "ON": True, "MB": True, "SK": True,
+    "WA": False, "OR": False, "CA": False, "NV": False, "UT": False, "AZ": False, "NM": False, "TX": False, "CO": False, "WY": False, "MT": False, "ID": False, "AB": False, "BC": False, "YK": False, "AK": False
+
+}
+
 #define total number of peaks 
-def count_total_peaks():
+def count_peaks(list):
     with open(csv_filename, newline='') as csvfile:
         data = csv.reader(csvfile, delimiter=',', quotechar='|')
-        total = sum(1 for row in data)
-    return total
-total = count_total_peaks()
+        next(data)
+        if(not list):
+            total = sum(1 for row in data)
+        else:
+            total = 0
+            for row in data:
+                if(list_types[list] > 8 and row[list_types[list]] == "y"):
+                    total += 1
+                elif(row[8] == list):
+                    total += 1
+                elif(list == "EAST" and regions[row[7]]):
+                    total += 1
+                elif(list == "WEST" and not regions[row[7]]):
+                    total += 1
+    #add one to the total as a way of making the code function better in csv_reader()
+    return total + 1
+total = count_peaks("")
 
 def base_file_reader(base_filename, directory):
     #reads base .html file for generating list of peak pages and outputs the beginning of that file
@@ -120,7 +145,7 @@ def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse, list, 
                 line = output_row(row, counter, reverse, False, total)
                 htmlData += line
                 counter += 1
-            elif(list_types[list] != 8 and row[list_types[list]] == "y"):
+            elif(list_types[list] > 8 and row[list_types[list]] == "y"):
                 line = output_row(row, counter, reverse, False, listNumber)
                 htmlData += line
                 counter += 1
@@ -132,10 +157,21 @@ def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse, list, 
                     line = output_row(row, counter, reverse, False, listNumber)
                 htmlData += line
                 counter += 1
+            elif(list == "EAST" and regions[row[7]]):
+                line = output_row(row, counter, reverse, False, listNumber)
+                htmlData += line
+                counter += 1
+            elif(list == "WEST" and not regions[row[7]]):
+                line = output_row(row, counter, reverse, False, listNumber)
+                htmlData += line
+                counter += 1
         
     return htmlData
 
-def list_of_peaks(base_filename, directory, list, listNumber):
+def list_of_peaks(base_filename, directory, list):
+
+    #create number of peaks on the list
+    listNumber = count_peaks(list)
     
     #list the parameters that the lists will sort for
     sorts = ["name", "elevation", "prominence", "isolation", "date", "location", "list"]
@@ -181,17 +217,32 @@ def list_of_peaks(base_filename, directory, list, listNumber):
         sortCounter += 1
 
 def update_main_page(base_filename):
-    #reads base .html file for generating list of peak pages and outputs the beginning of that file
+    #updates main page with date, peaks climbed, and trip reports
+
     baseText =  Path(base_filename).read_text()
+
+    #update with current date
     date = datetime.today().strftime('%Y-%m-%d')
-    dateIndex = baseText.find("<!---date-->")
-    outputText = baseText[:dateIndex - 10] + date + baseText[dateIndex:]
-    firstTotalIndex = outputText.find("<!---firstTotal-->")
-    outputText = outputText[:firstTotalIndex - 3] + str(total - 1) + outputText[firstTotalIndex:]
-    secondTotalIndex = outputText.find("<!---secondTotal-->")
-    outputText = outputText[:secondTotalIndex - 3] + str(total - 1) + outputText[secondTotalIndex:]
-    thirdTotalIndex = outputText.find("<!---thirdTotal-->")
-    outputText = outputText[:thirdTotalIndex - 3] + str(total - 1) + outputText[thirdTotalIndex:]
+    index = baseText.find("<!---date-->")
+    outputText = baseText[:index - 10] + date + baseText[index:]
+
+    #update total number of peak mentions
+    totalIndices = ["<!---firstTotal-->", "<!---secondTotal-->", "<!---thirdTotal-->"]
+    for totalIndex in totalIndices:
+        index = outputText.find(totalIndex)
+        outputText = outputText[:index - 3] + str(total - 1) + outputText[index:]
+        
+    #update trip report link
+    directory = "trip_reports/northeast_131_reports/"
+    fileNames = os.listdir("../" + directory)
+    tripReportLink = ""
+    for file in fileNames:
+        if(tripReportLink < file):
+            tripReportLink = file
+    tripReportLink = directory + tripReportLink
+    beginIndex = outputText.find("<!---beginTripReport-->")
+    endIndex = outputText.find("<!---endTripReport-->")
+    outputText = outputText[:beginIndex + 23] + "<a href=\"" + tripReportLink + "\">" + outputText[endIndex:]
 
     f = open(base_filename, "w")
     f.write(outputText)
@@ -201,42 +252,52 @@ def update_main_page(base_filename):
 update_main_page("../index.html")
 
 #create list of peaks and comment the ones that are "finished"
+def make_lists():
+    #master list
+    list_of_peaks("basic_list.html", "all/all", "")
 
-#master list
-list_of_peaks("basic_list.html", "all/all", "", total)
+    #current project
+    list_of_peaks("list_of_northeast_131.html", "project_lists/NE131", "NE131")
 
-#current project
-list_of_peaks("list_of_northeast_131.html", "project_lists/NE131", "NE131", 90 + 1)
+    #eastern vs western
+    list_of_peaks("list_of_eastern.html", "all/eastern_all", "EAST")
+    list_of_peaks("list_of_western.html", "all/western_all", "WEST")
 
-#all lists of prominence/location classes
-#list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K", 90 + 1)
+    #all lists of prominence/location classes
+    list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
+    list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
+    #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K", 16 + 1)
+    #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA", 3 + 1)
 
-#state lists
-#list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP", 20 + 1)
-#list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP", 12 + 1)
-#list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP", 13 + 1)
-#list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP", 11 + 1)
+    #state lists
+    #list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP", 20 + 1)
+    #list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP", 12 + 1)
+    #list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP", 13 + 1)
+    #list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP", 11 + 1)
 
-#current active official lists
-#list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K", 74 + 1)
-#list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT", 30 + 1)
-#list_of_peaks("list_of_catskill_35.html", "official_lists/CT35", "CT35", 33 + 1)
-#list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35", 30 + 1)
-#list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20", 20 + 1)
+    #current active official lists
+    #list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K", 74 + 1)
+    #list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT", 30 + 1)
+    #list_of_peaks("list_of_catskill_35.html", "official_lists/CT35", "CT35", 33 + 1)
+    #list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35", 30 + 1)
+    #list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20", 20 + 1)
 
-#list_of_peaks("list_of_nh_fire_towers.html", "official_lists/NHFT", "NHFT", 15 + 1)
-#list_of_peaks("list_of_lake_george_12.html", "official_lists/LG12", "LG12", 12 + 1)
-#list_of_peaks("list_of_ossipee_10.html", "official_lists/OSS10", "OSS10", 10 + 1)
+    #list_of_peaks("list_of_nh_fire_towers.html", "official_lists/NHFT", "NHFT", 15 + 1)
+    #list_of_peaks("list_of_lake_george_12.html", "official_lists/LG12", "LG12", 12 + 1)
+    #list_of_peaks("list_of_ossipee_10.html", "official_lists/OSS10", "OSS10", 10 + 1)
 
-#previous projects
-#list_of_peaks("list_of_southeast_202.html", "project_lists/SE202", "SE202", 202 + 1)
-#list_of_peaks("list_of_northeast_115.html", "project_lists/NE115", "NE115", 115 + 1)
+    #previous projects
+    #list_of_peaks("list_of_southeast_202.html", "project_lists/SE202", "SE202", 202 + 1)
+    #list_of_peaks("list_of_northeast_115.html", "project_lists/NE115", "NE115", 115 + 1)
 
-#former official lists
-#list_of_peaks("list_of_new_england_67.html", "official_lists/NE67", "NE67", 67 + 1)
-#list_of_peaks("list_of_adirondack_46.html", "official_lists/ADK46", "ADK46", 46 + 1)
-#list_of_peaks("list_of_southern_sixers.html", "official_lists/SE40", "SE40", 40 + 1)
+    #previous official lists
+    #list_of_peaks("list_of_new_england_67.html", "official_lists/NE67", "NE67", 67 + 1)
+    #list_of_peaks("list_of_adirondack_46.html", "official_lists/ADK46", "ADK46", 46 + 1)
+    #list_of_peaks("list_of_southern_sixers.html", "official_lists/SE40", "SE40", 40 + 1)
 
-#list_of_peaks("list_of_belknap_12.html", "official_lists/BEL12", "BEL12", 12 + 1)
-#list_of_peaks("list_of_tupper_triad.html", "official_lists/TUP3", "TUP3", 3 + 1)
-#list_of_peaks("list_of_fulton_trifecta.html", "official_lists/FUL3", "FUL3", 3 + 1)
+    #list_of_peaks("list_of_belknap_12.html", "official_lists/BEL12", "BEL12", 12 + 1)
+    #list_of_peaks("list_of_tupper_triad.html", "official_lists/TUP3", "TUP3", 3 + 1)
+    #list_of_peaks("list_of_fulton_trifecta.html", "official_lists/FUL3", "FUL3", 3 + 1)
+#make_lists()
+
+list_of_peaks("list_of_western.html", "all/western_all", "WEST")

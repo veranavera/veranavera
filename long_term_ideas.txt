@@ -13,8 +13,8 @@ Medium-term:
     - create html pages for main lists (done)
     - create pages for official lists (done)
     - create high point pages (done)
-    - update main page w/new reports
-    - procedurally generate trip report page
+    - update main page w/new reports (done)
+    - procedurally generate trip report page (done)
 - create project pages for main lists (done)
 
 Long-term:
