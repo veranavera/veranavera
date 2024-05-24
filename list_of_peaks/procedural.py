@@ -261,11 +261,11 @@ def make_lists():
 
     #eastern vs western
     list_of_peaks("list_of_eastern.html", "all/eastern_all", "EAST")
-    list_of_peaks("list_of_western.html", "all/western_all", "WEST")
+    #list_of_peaks("list_of_western.html", "all/western_all", "WEST")
 
     #all lists of prominence/location classes
     list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
-    list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
+    #list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
     #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K", 16 + 1)
     #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA", 3 + 1)
 
@@ -298,6 +298,6 @@ def make_lists():
     #list_of_peaks("list_of_belknap_12.html", "official_lists/BEL12", "BEL12", 12 + 1)
     #list_of_peaks("list_of_tupper_triad.html", "official_lists/TUP3", "TUP3", 3 + 1)
     #list_of_peaks("list_of_fulton_trifecta.html", "official_lists/FUL3", "FUL3", 3 + 1)
-#make_lists()
+make_lists()
 
 list_of_peaks("list_of_western.html", "all/western_all", "WEST")

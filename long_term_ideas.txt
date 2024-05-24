@@ -14,8 +14,9 @@ Medium-term:
     - create pages for official lists (done)
     - create high point pages (done)
     - update main page w/new reports (done)
-    - procedurally generate trip report page (done)
 - create project pages for main lists (done)
+- procedurally generate trip report page
+- procedurally generate list index page
 
 Long-term:
 - add blog posts header
