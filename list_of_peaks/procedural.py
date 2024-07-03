@@ -247,15 +247,26 @@ def update_main_page(base_filename):
     f.write(outputText)
     f.close()
 
-def update_trip_index():
+def update_trip_index(base_filename):
     #updates trip report index with new reports
 
-    baseText =  Path(base_filename).read_text()
+    baseText = Path(base_filename).read_text()
+
+    directories = ["trip_reports/northeast_131_reports/", "trip_reports/southeast_202_reports/",
+                   "trip_reports/northeast_115_reports/", "trip_reports/miscellaneous_reports/"]
 
     #update with current date
     date = datetime.today().strftime('%Y-%m-%d')
     index = baseText.find("<!---date-->")
     outputText = baseText[:index - 10] + date + baseText[index:]
+
+    #update trip report link
+    directory = "trip_reports/northeast_131_reports/"
+    fileNames = os.listdir("../" + directory)
+    tripReportLink = ""
+    for file in fileNames:
+        if(tripReportLink < file):
+            tripReportLink = file
 
 
 #update main page
@@ -275,7 +286,7 @@ def make_lists():
 
     #all lists of prominence/location classes
     list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
-    #list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
+    list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
     #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K", 16 + 1)
     #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA", 3 + 1)
 
@@ -286,15 +297,15 @@ def make_lists():
     #list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP", 11 + 1)
 
     #current active official lists
-    #list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K", 74 + 1)
+    list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K")
     #list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT", 30 + 1)
     #list_of_peaks("list_of_catskill_35.html", "official_lists/CT35", "CT35", 33 + 1)
     #list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35", 30 + 1)
     #list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20", 20 + 1)
 
-    #list_of_peaks("list_of_nh_fire_towers.html", "official_lists/NHFT", "NHFT", 15 + 1)
+    list_of_peaks("list_of_nh_fire_towers.html", "official_lists/NHFT", "NHFT")
     #list_of_peaks("list_of_lake_george_12.html", "official_lists/LG12", "LG12", 12 + 1)
-    #list_of_peaks("list_of_ossipee_10.html", "official_lists/OSS10", "OSS10", 10 + 1)
+    list_of_peaks("list_of_ossipee_10.html", "official_lists/OSS10", "OSS10")
 
     #previous projects
     #list_of_peaks("list_of_southeast_202.html", "project_lists/SE202", "SE202", 202 + 1)
