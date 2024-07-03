@@ -47,7 +47,6 @@ list_types = {
 regions = {
     "ME": True, "NH": True, "VT": True, "MA": True, "RI": True, "CT": True, "NY": True, "NJ": True, "PA": True, "DE": True, "MD": True, "VA": True, "VA/WV": True, "NC": True, "NC/TN": True, "SC": True, "GA": True, "FL": True, "AL": True, "MS": True, "LA": True, "AR": True, "TN": True, "KY": True,"KY/VA": True, "WV": True, "OH": True, "MI": True, "IN": True, "IL": True, "MO": True, "WI": True, "IA": True, "MN": True, "ND": True, "SD": True, "NE": True, "KS": True, "OK": True, "NL": True, "PE": True, "NS": True, "NB": True, "QC": True, "ON": True, "MB": True, "SK": True,
     "WA": False, "OR": False, "CA": False, "NV": False, "UT": False, "AZ": False, "NM": False, "TX": False, "CO": False, "WY": False, "MT": False, "ID": False, "AB": False, "BC": False, "YK": False, "AK": False
-
 }
 
 #define total number of peaks 
@@ -247,6 +246,17 @@ def update_main_page(base_filename):
     f = open(base_filename, "w")
     f.write(outputText)
     f.close()
+
+def update_trip_index():
+    #updates trip report index with new reports
+
+    baseText =  Path(base_filename).read_text()
+
+    #update with current date
+    date = datetime.today().strftime('%Y-%m-%d')
+    index = baseText.find("<!---date-->")
+    outputText = baseText[:index - 10] + date + baseText[index:]
+
 
 #update main page
 update_main_page("../index.html")
