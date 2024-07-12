@@ -16,13 +16,13 @@ Medium-term:
     - update main page w/new reports (done)
 - create project pages for main lists (done)
 - procedurally generate trip report page
-- procedurally generate list index page
+- procedurally generate list index page (done)
 
 Long-term:
-- add blog posts header
+- add blog posts header (done)
     - page on displaying vs planting flags
-    - statement of purpose of project
-    - statement of history of personal project
-- east/west divider for peaks climbed page (easily doable, not for rn)
-- P2k/P5k pages for peaks climbed page (easily doable, not for rn)
+    - statement of purpose of project (done)
+    - statement of history of personal project (done)
+- east/west divider for peaks climbed page (done)
+- P2k/P5k pages for peaks climbed page (done)
 - add long/lat to peaks climbed page
