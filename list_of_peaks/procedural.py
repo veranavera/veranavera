@@ -286,7 +286,7 @@ def make_lists():
 
     #all lists of prominence/location classes
     list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
-    #list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
+    list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
     #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K", 16 + 1)
     #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA", 3 + 1)
 
@@ -298,10 +298,10 @@ def make_lists():
 
     #current active official lists
     list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K")
-    list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT")
+    #list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT")
     #list_of_peaks("list_of_catskill_35.html", "official_lists/CT35", "CT35", 33 + 1)
-    #list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35", 30 + 1)
-    #list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20", 20 + 1)
+    list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35")
+    list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20")
 
     #list_of_peaks("list_of_nh_fire_towers.html", "official_lists/NHFT", "NHFT")
     #list_of_peaks("list_of_lake_george_12.html", "official_lists/LG12", "LG12", 12 + 1)
