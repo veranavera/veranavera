@@ -287,36 +287,36 @@ def make_lists():
     #all lists of prominence/location classes
     list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
     list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
-    #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K", 16 + 1)
-    #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA", 3 + 1)
+    #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
+    #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA")
 
     #state lists
-    #list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP", 20 + 1)
-    #list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP", 12 + 1)
-    #list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP", 13 + 1)
-    #list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP", 11 + 1)
+    #list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP")
+    #list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP")
+    #list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP")
+    #list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP")
 
     #current active official lists
     list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K")
-    #list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT")
-    #list_of_peaks("list_of_catskill_35.html", "official_lists/CT35", "CT35", 33 + 1)
-    list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35")
-    list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20")
+    #list_of_peaks("list_of_catskill_35.html", "official_lists/CT35", "CT35")
+    #list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35")
+    #list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20")
 
     #list_of_peaks("list_of_nh_fire_towers.html", "official_lists/NHFT", "NHFT")
-    #list_of_peaks("list_of_lake_george_12.html", "official_lists/LG12", "LG12", 12 + 1)
+    #list_of_peaks("list_of_lake_george_12.html", "official_lists/LG12", "LG12")
     #list_of_peaks("list_of_ossipee_10.html", "official_lists/OSS10", "OSS10")
 
     #previous projects
-    #list_of_peaks("list_of_southeast_202.html", "project_lists/SE202", "SE202", 202 + 1)
-    #list_of_peaks("list_of_northeast_115.html", "project_lists/NE115", "NE115", 115 + 1)
+    #list_of_peaks("list_of_southeast_202.html", "project_lists/SE202", "SE202")
+    #list_of_peaks("list_of_northeast_115.html", "project_lists/NE115", "NE115")
 
     #previous official lists
-    #list_of_peaks("list_of_new_england_67.html", "official_lists/NE67", "NE67", 67 + 1)
-    #list_of_peaks("list_of_adirondack_46.html", "official_lists/ADK46", "ADK46", 46 + 1)
-    #list_of_peaks("list_of_southern_sixers.html", "official_lists/SE40", "SE40", 40 + 1)
+    #list_of_peaks("list_of_new_england_67.html", "official_lists/NE67", "NE67")
+    #list_of_peaks("list_of_adirondack_46.html", "official_lists/ADK46", "ADK46")
+    #list_of_peaks("list_of_southern_sixers.html", "official_lists/SE40", "SE40")
+    #list_of_peaks("list_of_ny_fire_towers.html", "official_lists/NYFT", "NYFT")
 
-    #list_of_peaks("list_of_belknap_12.html", "official_lists/BEL12", "BEL12", 12 + 1)
-    #list_of_peaks("list_of_tupper_triad.html", "official_lists/TUP3", "TUP3", 3 + 1)
-    #list_of_peaks("list_of_fulton_trifecta.html", "official_lists/FUL3", "FUL3", 3 + 1)
+    #list_of_peaks("list_of_belknap_12.html", "official_lists/BEL12", "BEL12")
+    #list_of_peaks("list_of_tupper_triad.html", "official_lists/TUP3", "TUP3")
+    #list_of_peaks("list_of_fulton_trifecta.html", "official_lists/FUL3", "FUL3")
 make_lists()
