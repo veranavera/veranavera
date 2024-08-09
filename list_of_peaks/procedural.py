@@ -286,18 +286,18 @@ def make_lists():
 
     #all lists of prominence/location classes
     list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
-    list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
+    #list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
     #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
     #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA")
 
     #state lists
-    #list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP")
-    #list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP")
-    #list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP")
-    #list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP")
+    list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP")
+    list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP")
+    list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP")
+    list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP")
 
     #current active official lists
-    list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K")
+    #list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K")
     #list_of_peaks("list_of_catskill_35.html", "official_lists/CT35", "CT35")
     #list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35")
     #list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20")
