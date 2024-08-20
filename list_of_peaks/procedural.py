@@ -232,7 +232,10 @@ def update_main_page(base_filename):
         outputText = outputText[:index - 3] + str(total - 1) + outputText[index:]
         
     #update trip report link
-    directory = "trip_reports/northeast_131_reports/"
+
+    directories = ["trip_reports/northeast_131_reports/", "trip_reports/southeast_202_reports/",
+                   "trip_reports/northeast_115_reports/", "trip_reports/miscellaneous_reports/"]
+    directory = directories[3]
     fileNames = os.listdir("../" + directory)
     tripReportLink = ""
     for file in fileNames:
@@ -261,8 +264,7 @@ def update_trip_index(base_filename):
     outputText = baseText[:index - 10] + date + baseText[index:]
 
     #update trip report link
-    directory = "trip_reports/northeast_131_reports/"
-    fileNames = os.listdir("../" + directory)
+    fileNames = os.listdir("../" + directories[3])
     tripReportLink = ""
     for file in fileNames:
         if(tripReportLink < file):
@@ -278,23 +280,22 @@ def make_lists():
     list_of_peaks("basic_list.html", "all/all", "")
 
     #current project
-    list_of_peaks("list_of_northeast_131.html", "project_lists/NE131", "NE131")
 
     #eastern vs western
-    list_of_peaks("list_of_eastern.html", "all/eastern_all", "EAST")
-    #list_of_peaks("list_of_western.html", "all/western_all", "WEST")
+    #list_of_peaks("list_of_eastern.html", "all/eastern_all", "EAST")
+    list_of_peaks("list_of_western.html", "all/western_all", "WEST")
 
     #all lists of prominence/location classes
     list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
-    #list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
-    #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
+    list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
+    list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
     #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA")
 
     #state lists
-    list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP")
-    list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP")
-    list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP")
-    list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP")
+    #list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP")
+    #list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP")
+    #list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP")
+    #list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP")
 
     #current active official lists
     #list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K")
@@ -307,6 +308,7 @@ def make_lists():
     #list_of_peaks("list_of_ossipee_10.html", "official_lists/OSS10", "OSS10")
 
     #previous projects
+    #list_of_peaks("list_of_northeast_131.html", "project_lists/NE131", "NE131")
     #list_of_peaks("list_of_southeast_202.html", "project_lists/SE202", "SE202")
     #list_of_peaks("list_of_northeast_115.html", "project_lists/NE115", "NE115")
 
