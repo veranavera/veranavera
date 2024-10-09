@@ -17,6 +17,7 @@ list_types = {
     "NE115": 8,
     "SE202": 8,
     "NE131": 8,
+    "LCL": 8,
     "ULTRA": 9,
     "P3K": 10,
     "P2K": 11,
@@ -128,6 +129,7 @@ def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse, list, 
     with open(csv_filename, newline='') as csvfile:
         data = csv.reader(csvfile, delimiter=',', quotechar='|')
         next(data)
+        counter = 0
         if(reverse):
             if(sortTypes[sortCounter]):
                 sortedData = sorted(data, key=lambda x: float(x[sortCounters[sortCounter]]), reverse=not sortOrders[sortCounter])
@@ -218,7 +220,7 @@ def list_of_peaks(base_filename, directory, list):
 def update_main_page(base_filename):
     #updates main page with date, peaks climbed, and trip reports
 
-    baseText =  Path(base_filename).read_text()
+    baseText = Path(base_filename).read_text()
 
     #update with current date
     date = datetime.today().strftime('%Y-%m-%d')
@@ -233,9 +235,9 @@ def update_main_page(base_filename):
         
     #update trip report link
 
-    directories = ["trip_reports/northeast_131_reports/", "trip_reports/southeast_202_reports/",
+    directories = ["trip_reports/long_covid_reports/", "trip_reports/northeast_131_reports/", "trip_reports/southeast_202_reports/",
                    "trip_reports/northeast_115_reports/", "trip_reports/miscellaneous_reports/"]
-    directory = directories[3]
+    directory = directories[0]
     fileNames = os.listdir("../" + directory)
     tripReportLink = ""
     for file in fileNames:
@@ -249,6 +251,37 @@ def update_main_page(base_filename):
     f = open(base_filename, "w")
     f.write(outputText)
     f.close()
+
+def format_csv_file():
+    #vera, when you climb your first 14er/P10k, update this code to run on the comas in the prominence section to you overachiever you :)
+    with open(csv_filename, "r+") as file:
+        data = file.read()
+    comma_number = 31
+    lines = data.split("\n")
+    new_data = ""
+    for line in lines:
+        if(line.count(",") > comma_number):
+            values = line.split(",")
+            print(values)
+            value = values[2] + values[3]
+            value.strip("\"")
+            value = value[1:len(value)-1]
+            vals = ""
+            for val in values:
+                if(val == values[2] or val == values[3]):
+                    if(values[2] == val):
+                        vals += value + ","
+                        print(value)
+                else:
+                    vals += val + ","
+            print(vals)
+            new_data += vals + "\n"
+        else:
+            new_data += line + "\n"
+    with open(csv_filename, "r+") as file:
+        file.write(new_data)
+        file.truncate()
+        file.close()
 
 def update_trip_index(base_filename):
     #updates trip report index with new reports
@@ -270,9 +303,11 @@ def update_trip_index(base_filename):
         if(tripReportLink < file):
             tripReportLink = file
 
-
 #update main page
 update_main_page("../index.html")
+
+#format csv file
+#format_csv_file()
 
 #create list of peaks and comment the ones that are "finished"
 def make_lists():
@@ -308,6 +343,7 @@ def make_lists():
     #list_of_peaks("list_of_ossipee_10.html", "official_lists/OSS10", "OSS10")
 
     #previous projects
+    list_of_peaks("list_of_long_covid_list.html", "project_lists/LCL", "LCL")
     #list_of_peaks("list_of_northeast_131.html", "project_lists/NE131", "NE131")
     #list_of_peaks("list_of_southeast_202.html", "project_lists/SE202", "SE202")
     #list_of_peaks("list_of_northeast_115.html", "project_lists/NE115", "NE115")
