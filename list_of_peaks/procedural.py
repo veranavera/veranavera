@@ -49,6 +49,9 @@ regions = {
     "ME": True, "NH": True, "VT": True, "MA": True, "RI": True, "CT": True, "NY": True, "NJ": True, "PA": True, "DE": True, "MD": True, "VA": True, "VA/WV": True, "NC": True, "NC/TN": True, "SC": True, "GA": True, "FL": True, "AL": True, "MS": True, "LA": True, "AR": True, "TN": True, "KY": True,"KY/VA": True, "WV": True, "OH": True, "MI": True, "IN": True, "IL": True, "MO": True, "WI": True, "IA": True, "MN": True, "ND": True, "SD": True, "NE": True, "KS": True, "OK": True, "NL": True, "PE": True, "NS": True, "NB": True, "QC": True, "ON": True, "MB": True, "SK": True,
     "WA": False, "OR": False, "CA": False, "NV": False, "UT": False, "AZ": False, "NM": False, "TX": False, "CO": False, "WY": False, "MT": False, "ID": False, "AB": False, "BC": False, "YK": False, "AK": False
 }
+region = {
+#    "IE" : True, "NI" : True, "EN" : True, "WL" : True, "SC" : True, "NL" : True, "BE" : True, "LU" : True, "DK" : True, "SE" : True, "NO" : True, "FO" : True, "IS" : True, "FI" : True, "EE" : True, "LV" : True, "LT" : True, "PL" : True, "UA" : True, "MD" : True, "SK" : True, "CZ" : True, "DE" : True, "FR" : True, "PT" : False, "ES" : False, "AD" : False, "MC" : False, "IT" : False, "VA" : False, "SM" : False, "CH" : False, "LI" : False, "AT" : False, "HU" : False, "RO" : False, "SI" : False, "HR" : False, "BA" : False, "RS" : False, "ME" : False, "MK" : False, "AL" : False, "GR" : False, "BG" : False, "TR" : False, "MT" : False, "CY" : False, "MA" : False, "DZ" : False, "TN" : False
+}
 
 #define total number of peaks 
 def count_peaks(list):
