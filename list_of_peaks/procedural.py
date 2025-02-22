@@ -12,35 +12,35 @@ splicer = "<!---splicer-->"
 
 #define list column values
 list_types = {
-    "EAST": 7,
-    "WEST": 7,
-    "NE115": 8,
-    "SE202": 8,
-    "NE131": 8,
-    "LCL": 8,
-    "ULTRA": 9,
-    "P3K": 10,
-    "P2K": 11,
-    "P1K": 12,
-    "STHP": 13,
-    "STPP": 14,
-    "STIP": 15,
-    "STEP": 16,
-    "NE67": 17,
-    "ADK46": 18,
-    "SE40": 19,
-    "NYFT": 20,
-    "EAP2K": 21,
-    "VT35": 22,
-    "CT35": 23,
-    "BEL12": 24,
-    "OSS10": 25,
-    "NHFT": 26,
-    "NEK20": 27,
-    "LG12": 28,
-    "SAR6": 29,
-    "FUL3": 30,
-    "TUP3": 31
+    "EAST": 10,
+    "WEST": 10,
+    "NE115": 11,
+    "SE202": 11,
+    "NE131": 11,
+    "LCL": 11,
+    "ULTRA": 12,
+    "P3K": 13,
+    "P2K": 14,
+    "P1K": 15,
+    "STHP": 16,
+    "STPP": 17,
+    "STIP": 18,
+    "STEP": 19,
+    "NE67": 20,
+    "ADK46": 21,
+    "SE40": 22,
+    "NYFT": 23,
+    "EAP2K": 24,
+    "VT35": 25,
+    "CT35": 26,
+    "BEL12": 27,
+    "OSS10": 28,
+    "NHFT": 29,
+    "NEK20": 30,
+    "LG12": 31,
+    "SAR6": 32,
+    "FUL3": 33,
+    "TUP3": 34
 }
 
 #define eastern/western regions of North America
@@ -48,9 +48,6 @@ list_types = {
 regions = {
     "ME": True, "NH": True, "VT": True, "MA": True, "RI": True, "CT": True, "NY": True, "NJ": True, "PA": True, "DE": True, "MD": True, "VA": True, "VA/WV": True, "NC": True, "NC/TN": True, "SC": True, "GA": True, "FL": True, "AL": True, "MS": True, "LA": True, "AR": True, "TN": True, "KY": True,"KY/VA": True, "WV": True, "OH": True, "MI": True, "IN": True, "IL": True, "MO": True, "WI": True, "IA": True, "MN": True, "ND": True, "SD": True, "NE": True, "KS": True, "OK": True, "NL": True, "PE": True, "NS": True, "NB": True, "QC": True, "ON": True, "MB": True, "SK": True,
     "WA": False, "OR": False, "CA": False, "NV": False, "UT": False, "AZ": False, "NM": False, "TX": False, "CO": False, "WY": False, "MT": False, "ID": False, "AB": False, "BC": False, "YK": False, "AK": False
-}
-region = {
-#    "IE" : True, "NI" : True, "EN" : True, "WL" : True, "SC" : True, "NL" : True, "BE" : True, "LU" : True, "DK" : True, "SE" : True, "NO" : True, "FO" : True, "IS" : True, "FI" : True, "EE" : True, "LV" : True, "LT" : True, "PL" : True, "UA" : True, "MD" : True, "SK" : True, "CZ" : True, "DE" : True, "FR" : True, "PT" : False, "ES" : False, "AD" : False, "MC" : False, "IT" : False, "VA" : False, "SM" : False, "CH" : False, "LI" : False, "AT" : False, "HU" : False, "RO" : False, "SI" : False, "HR" : False, "BA" : False, "RS" : False, "ME" : False, "MK" : False, "AL" : False, "GR" : False, "BG" : False, "TR" : False, "MT" : False, "CY" : False, "MA" : False, "DZ" : False, "TN" : False
 }
 
 #define total number of peaks 
@@ -63,13 +60,13 @@ def count_peaks(list):
         else:
             total = 0
             for row in data:
-                if(list_types[list] > 8 and row[list_types[list]] == "y"):
+                if(list_types[list] > 11 and row[list_types[list]] == "y"):
                     total += 1
-                elif(row[8] == list):
+                elif(row[11] == list):
                     total += 1
-                elif(list == "EAST" and regions[row[7]]):
+                elif(list == "EAST" and regions[row[10]]):
                     total += 1
-                elif(list == "WEST" and not regions[row[7]]):
+                elif(list == "WEST" and not regions[row[10]]):
                     total += 1
     #add one to the total as a way of making the code function better in csv_reader()
     return total + 1
@@ -118,11 +115,11 @@ def output_row(row, counter, reverse, unranked, total):
         line += "<th class = \"number\">" + str(counter) + "</th>\n\t\t\t"
     line += "<th class = \"name\"><a href=\"" + row[1] + "\">" + row[0] + "</a></th>\n\t\t\t"
     line += "<th class = \"elevation\">" + str(row[2]) + "</th>\n\t\t\t"
-    line += "<th class = \"prominence\">" + str(row[3]) + "</th>\n\t\t\t"
-    line += "<th class = \"isolation\">" + str(row[4]) + "</th>\n\t\t\t"
-    line += "<th class = \"date\"><a href=\"" + row[6] + "\">" + row[5] + "</a></th>\n\t\t\t"
-    line += "<th class = \"location\">" + row[7] + "</th>\n\t\t\t"
-    line += "<th class = \"list\">" + row[8] + "</th>\n\t\t"
+    line += "<th class = \"prominence\">" + str(row[4]) + "</th>\n\t\t\t"
+    line += "<th class = \"isolation\">" + str(row[7]) + "</th>\n\t\t\t"
+    line += "<th class = \"date\"><a href=\"" + row[9] + "\">" + row[8] + "</a></th>\n\t\t\t"
+    line += "<th class = \"location\">" + row[10] + "</th>\n\t\t\t"
+    line += "<th class = \"list\">" + row[11] + "</th>\n\t\t"
     line += "</tr>\n\t\t"
     return line
 
@@ -149,23 +146,23 @@ def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse, list, 
                 line = output_row(row, counter, reverse, False, total)
                 htmlData += line
                 counter += 1
-            elif(list_types[list] > 8 and row[list_types[list]] == "y"):
+            elif(list_types[list] > 11 and row[list_types[list]] == "y"):
                 line = output_row(row, counter, reverse, False, listNumber)
                 htmlData += line
                 counter += 1
-            elif(row[8] == list or row[8] == (list + "a")):
-                if((row[8][len(row[8]) - 1]) == "a"):
+            elif(row[11] == list or row[11] == (list + "a")):
+                if((row[11][len(row[11]) - 1]) == "a"):
                     line = output_row(row, counter, reverse, True, 0)
                     counter -= 1
                 else:
                     line = output_row(row, counter, reverse, False, listNumber)
                 htmlData += line
                 counter += 1
-            elif(list == "EAST" and regions[row[7]]):
+            elif(list == "EAST" and regions[row[10]]):
                 line = output_row(row, counter, reverse, False, listNumber)
                 htmlData += line
                 counter += 1
-            elif(list == "WEST" and not regions[row[7]]):
+            elif(list == "WEST" and not regions[row[10]]):
                 line = output_row(row, counter, reverse, False, listNumber)
                 htmlData += line
                 counter += 1
@@ -191,7 +188,7 @@ def list_of_peaks(base_filename, directory, list):
                 links[x][y] = "list_of_peaks_" + links[x][y] + ".html"
 
     #manually input which parameters should be sorted for 
-    sortCounters = [0, 2, 3, 4, 5, 7, 8]
+    sortCounters = [0, 2, 4, 7, 8, 10, 11]
     #change date here for different ordering priorities
     sortOrders = [False, True, True, True, False, False, True]
     sortTypes = [False, True, True, True, False, False, False]
