@@ -1,28 +1,13 @@
 Attached bellow are some ideas that I have for near-term, medium-term, and long-term work/expansions to be done on this website
 
 Near-term:
-- update the photo numbers for the 202 (done)
-- update peaks climbed page for new peaks (done)
-- add photo links to peaks climbed page (done)
-- finish 115 reports (done)
-- finish miscellaneous reports (done)
-- physical backup of website
+- Add 
 
 Medium-term:
-- streamline and expand back end
-    - create html pages for main lists (done)
-    - create pages for official lists (done)
-    - create high point pages (done)
-    - update main page w/new reports (done)
-- create project pages for main lists (done)
-- procedurally generate trip report page
-- procedurally generate list index page (done)
+- Add metric/miles options for list pages
+
 
 Long-term:
-- add blog posts header (done)
-    - page on displaying vs planting flags
-    - statement of purpose of project (done)
-    - statement of history of personal project (done)
-- east/west divider for peaks climbed page (done)
-- P2k/P5k pages for peaks climbed page (done)
+- page on displaying vs planting flags
 - add long/lat to peaks climbed page
+- sort peaks into rough indigenous nations 
