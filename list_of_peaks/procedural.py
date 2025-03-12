@@ -12,6 +12,36 @@ splicer = "<!---splicer-->"
 
 #define list column values
 list_types = {
+    "ME": 10,
+    "NH": 10,
+    "VT": 10,
+    "MA": 10,
+    "RI": 10,
+    "CT": 10,
+    "NY": 10,
+    "NJ": 10,
+    "PA": 10,
+    "DE": 10,
+    "MD": 10,
+    "VA": 10,
+    "WV": 10,
+    "KY": 10,
+    "NC": 10,
+    "TN": 10,
+    "GA": 10,
+    "AL": 10,
+    "OH": 10,
+    "IN": 10,
+    "IL": 10,
+    "MO": 10,
+    "KS": 10,
+    "TX": 10,
+    "NM": 10,
+    "AZ": 10,
+    "UT": 10,
+    "ID": 10,
+    "OR": 10,
+    "WA": 10,
     "EAST": 10,
     "WEST": 10,
     "NE115": 11,
@@ -44,11 +74,59 @@ list_types = {
     "TUP3": 35
 }
 
+project_lists = {
+    "NE115": "../../project_lists/NE115/list_of_peaks_elevation.html",
+    "n/a": "",
+    "SE202": "../../project_lists/SE202/list_of_peaks_elevation.html",
+    "SE202a": "../../project_lists/SE202/list_of_peaks_elevation.html",
+    "NE131": "../../project_lists/NE131/list_of_peaks_prominence.html",
+    "NE131a": "../../project_lists/NE131/list_of_peaks_prominence.html",
+    "LCL": "../../project_lists/LCL/list_of_peaks_date_reverse.html",
+    "OR78": "../../project_lists/OR78/list_of_peaks_prominence.html",
+    "OR78a": "../../project_lists/OR78/list_of_peaks_prominence.html",
+}
 #define eastern/western regions of North America
     #with true meaning eastern and vice versa
 regions = {
     "ME": True, "NH": True, "VT": True, "MA": True, "RI": True, "CT": True, "NY": True, "NJ": True, "PA": True, "DE": True, "MD": True, "VA": True, "VA/WV": True, "NC": True, "NC/TN": True, "SC": True, "GA": True, "FL": True, "AL": True, "MS": True, "LA": True, "AR": True, "TN": True, "KY": True,"KY/VA": True, "WV": True, "OH": True, "MI": True, "IN": True, "IL": True, "MO": True, "WI": True, "IA": True, "MN": True, "ND": True, "SD": True, "NE": True, "KS": True, "OK": True, "NL": True, "PE": True, "NS": True, "NB": True, "QC": True, "ON": True, "MB": True, "SK": True,
     "WA": False, "OR": False, "CA": False, "NV": False, "UT": False, "AZ": False, "NM": False, "TX": False, "CO": False, "WY": False, "MT": False, "ID": False, "AB": False, "BC": False, "YK": False, "AK": False
+}
+
+#define states/small regions 
+states = {
+    "ME": "maine",
+    "NH": "new_hampshire",
+    "VT": "vermont",
+    "MA": "massachusetts",
+    "RI": "rhode_island",
+    "CT": "connecticut",
+    "NY": "new_york",
+    "NJ": "new_jersey",
+    "PA": "pennsylvania",
+    "DE": "delaware",
+    "MD": "maryland",
+    "VA": "virginia",
+    "WV": "west_virginia",
+    "VA/WV": "virginia",
+    "KY": "kentucky",
+    "KY/VA": "virginia",
+    "NC": "north_carolina",
+    "TN": "tennessee",
+    "NC/TN": "north_carolina",
+    "GA": "georgia",
+    "AL": "alabama",
+    "OH": "ohio",
+    "IN": "indiana",
+    "IL": "illinois",
+    "MO": "missouri",
+    "KS": "kansas",
+    "TX": "texas",
+    "NM": "new_mexico",
+    "AZ": "arizona",
+    "UT": "utah",
+    "ID": "idaho",
+    "OR": "oregon",
+    "WA": "washington",
 }
 
 #define total number of peaks 
@@ -64,6 +142,8 @@ def count_peaks(list):
                 if(list_types[list] > 11 and row[list_types[list]] == "y"):
                     total += 1
                 elif(row[11] == list):
+                    total += 1
+                elif(list == row[10] or list in row[10]):
                     total += 1
                 elif(list == "EAST" and regions[row[10]]):
                     total += 1
@@ -119,8 +199,8 @@ def output_row(row, counter, reverse, unranked, total):
     line += "<th class = \"prominence\">" + str(row[4]) + "</th>\n\t\t\t"
     line += "<th class = \"isolation\">" + str(row[7]) + "</th>\n\t\t\t"
     line += "<th class = \"date\"><a href=\"" + row[9] + "\">" + row[8] + "</a></th>\n\t\t\t"
-    line += "<th class = \"location\">" + row[10] + "</th>\n\t\t\t"
-    line += "<th class = \"list\">" + row[11] + "</th>\n\t\t"
+    line += "<th class = \"location\"><a class=\"location\"; href=\"../../state_lists/" + states[row[10]] + "_all/list_of_peaks_date_reverse.html\">" + row[10] + "</a></th>\n\t\t\t"
+    line += "<th class = \"list\"><a class=\"list\"; href=\"" + project_lists[row[11]] + "\">" + row[11] + "</a></th>\n\t\t"
     line += "</tr>\n\t\t"
     return line
 
@@ -164,6 +244,10 @@ def csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, reverse, list, 
                 htmlData += line
                 counter += 1
             elif(list == "WEST" and not regions[row[10]]):
+                line = output_row(row, counter, reverse, False, listNumber)
+                htmlData += line
+                counter += 1
+            elif(list == row[10] or list in row[10]):
                 line = output_row(row, counter, reverse, False, listNumber)
                 htmlData += line
                 counter += 1
@@ -316,35 +400,43 @@ def make_lists():
     list_of_peaks("basic_list.html", "all/all", "")
 
     #current project
+    list_of_peaks("list_of_oregon_78.html", "project_lists/OR78", "OR78")
 
     #eastern vs western
     #list_of_peaks("list_of_eastern.html", "all/eastern_all", "EAST")
-    list_of_peaks("list_of_western.html", "all/western_all", "WEST")
+    #list_of_peaks("list_of_western.html", "all/western_all", "WEST")
+    list_of_peaks("list_of_new_york.html", "state_lists/new_york_all", "NY")
+    list_of_peaks("list_of_vermont.html", "state_lists/vermont_all", "VT")
+    list_of_peaks("list_of_new_hampshire.html", "state_lists/new_hampshire_all", "NH")
+    list_of_peaks("list_of_maine.html", "state_lists/maine_all", "ME")
 
     #all lists of prominence/location classes
-    list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
-    list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
-    list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
+    #list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
+    #list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
+    #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
+    #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA")
+make_lists()
+
+#useful function lines
+
+
+    #all lists of prominence/location classes
+    #list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
+    #list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
+    #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
     #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA")
 
-    #state lists
+    #tripple points
     #list_of_peaks("list_of_state_epic_points.html", "official_lists/STEP", "STEP")
     #list_of_peaks("list_of_state_high_points.html", "official_lists/STHP", "STHP")
     #list_of_peaks("list_of_state_prominent_points.html", "official_lists/STPP", "STPP")
     #list_of_peaks("list_of_state_isolation_points.html", "official_lists/STIP", "STIP")
 
-    #current active official lists
-    #list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K")
-    #list_of_peaks("list_of_catskill_35.html", "official_lists/CT35", "CT35")
-    #list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35")
-    #list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20")
-
-    #list_of_peaks("list_of_nh_fire_towers.html", "official_lists/NHFT", "NHFT")
-    #list_of_peaks("list_of_lake_george_12.html", "official_lists/LG12", "LG12")
-    #list_of_peaks("list_of_ossipee_10.html", "official_lists/OSS10", "OSS10")
+    #state lists
+    #list_of_peaks("list_of_new_hampshire.html", "state_lists/new_hampshire_all", "NH")
 
     #previous projects
-    list_of_peaks("list_of_long_covid_list.html", "project_lists/LCL", "LCL")
+    #list_of_peaks("list_of_long_covid_list.html", "project_lists/LCL", "LCL")
     #list_of_peaks("list_of_northeast_131.html", "project_lists/NE131", "NE131")
     #list_of_peaks("list_of_southeast_202.html", "project_lists/SE202", "SE202")
     #list_of_peaks("list_of_northeast_115.html", "project_lists/NE115", "NE115")
@@ -358,4 +450,22 @@ def make_lists():
     #list_of_peaks("list_of_belknap_12.html", "official_lists/BEL12", "BEL12")
     #list_of_peaks("list_of_tupper_triad.html", "official_lists/TUP3", "TUP3")
     #list_of_peaks("list_of_fulton_trifecta.html", "official_lists/FUL3", "FUL3")
-make_lists()
+    
+    #current active official lists
+    #list_of_peaks("list_of_eastern_p2ks.html", "official_lists/EAP2K", "EAP2K")
+    #list_of_peaks("list_of_catskill_35.html", "official_lists/CT35", "CT35")
+    #list_of_peaks("list_of_vermont_35.html", "official_lists/VT35", "VT35")
+    #list_of_peaks("list_of_northeast_kingdom.html", "official_lists/NEK20", "NEK20")
+
+    #list_of_peaks("list_of_nh_fire_towers.html", "official_lists/NHFT", "NHFT")
+    #list_of_peaks("list_of_lake_george_12.html", "official_lists/LG12", "LG12")
+    #list_of_peaks("list_of_ossipee_10.html", "official_lists/OSS10", "OSS10")
+
+    #state pages
+    
+    #list_of_peaks("list_of_virginia.html", "state_lists/virginia_all", "VA")
+    #list_of_peaks("list_of_tennessee.html", "state_lists/tennessee_all", "TN")
+    #list_of_peaks("list_of_north_carolina.html", "state_lists/north_carolina_all", "NC")
+    #list_of_peaks("list_of_west_virginia.html", "state_lists/west_virginia_all", "WV")
+    #list_of_peaks("list_of_texas.html", "state_lists/texas_all", "TX")
+    #list_of_peaks("list_of_new_jersey.html", "state_lists/new_jersey_all", "NJ")
