@@ -42,13 +42,15 @@ list_types = {
     "ID": 10,
     "OR": 10,
     "WA": 10,
+    "CA": 10,
     "EAST": 10,
     "WEST": 10,
     "NE115": 11,
     "SE202": 11,
     "NE131": 11,
     "LCL": 20,
-    "OR78": 11,
+    "NCA56": 11,
+    "OR101": 11,
     "ULTRA": 12,
     "P3K": 13,
     "P2K": 14,
@@ -82,8 +84,8 @@ project_lists = {
     "NE131": "../../project_lists/NE131/list_of_peaks_prominence.html",
     "NE131a": "../../project_lists/NE131/list_of_peaks_prominence.html",
     "LCL": "../../project_lists/LCL/list_of_peaks_date_reverse.html",
-    "OR78": "../../project_lists/OR78/list_of_peaks_prominence.html",
-    "OR78a": "../../project_lists/OR78/list_of_peaks_prominence.html",
+    "OR101": "../../project_lists/OR101/list_of_peaks_prominence.html",
+    "OR101a": "../../project_lists/OR101/list_of_peaks_prominence.html",
 }
 #define eastern/western regions of North America
     #with true meaning eastern and vice versa
@@ -127,6 +129,7 @@ states = {
     "ID": "idaho",
     "OR": "oregon",
     "WA": "washington",
+    "CA": "california",
 }
 
 #define total number of peaks 
@@ -400,20 +403,19 @@ def make_lists():
     list_of_peaks("basic_list.html", "all/all", "")
 
     #current project
-    list_of_peaks("list_of_oregon_78.html", "project_lists/OR78", "OR78")
+    list_of_peaks("list_of_oregon_101.html", "project_lists/OR101", "OR101")
 
     #eastern vs western
     #list_of_peaks("list_of_eastern.html", "all/eastern_all", "EAST")
-    #list_of_peaks("list_of_western.html", "all/western_all", "WEST")
-    list_of_peaks("list_of_new_york.html", "state_lists/new_york_all", "NY")
-    list_of_peaks("list_of_vermont.html", "state_lists/vermont_all", "VT")
-    list_of_peaks("list_of_new_hampshire.html", "state_lists/new_hampshire_all", "NH")
-    list_of_peaks("list_of_maine.html", "state_lists/maine_all", "ME")
+    list_of_peaks("list_of_western.html", "all/western_all", "WEST")
+    list_of_peaks("list_of_oregon.html", "state_lists/oregon_all", "OR")
+    list_of_peaks("list_of_california.html", "state_lists/california_all", "CA")
+
 
     #all lists of prominence/location classes
-    #list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
-    #list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
-    #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
+    list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
+    list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
+    list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
     #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA")
 make_lists()
 
