@@ -323,8 +323,7 @@ def update_main_page(base_filename):
         
     #update trip report link
 
-    directories = ["trip_reports/long_covid_reports/", "trip_reports/northeast_131_reports/", "trip_reports/southeast_202_reports/",
-                   "trip_reports/northeast_115_reports/", "trip_reports/miscellaneous_reports/"]
+    directories = ["trip_reports/oregon_101_reports/", "trip_reports/long_covid_reports/", "trip_reports/northeast_131_reports/", "trip_reports/southeast_202_reports/", "trip_reports/northeast_115_reports/", "trip_reports/miscellaneous_reports/"]
     directory = directories[0]
     fileNames = os.listdir("../" + directory)
     tripReportLink = ""
@@ -376,8 +375,9 @@ def update_trip_index(base_filename):
 
     baseText = Path(base_filename).read_text()
 
-    directories = ["trip_reports/northeast_131_reports/", "trip_reports/southeast_202_reports/",
-                   "trip_reports/northeast_115_reports/", "trip_reports/miscellaneous_reports/"]
+    directories = ["trip_reports/oregon_101_reports/", "trip_reports/northeast_131_reports/", 
+                   "trip_reports/southeast_202_reports/", "trip_reports/northeast_115_reports/", 
+                   "trip_reports/miscellaneous_reports/"]
 
     #update with current date
     date = datetime.today().strftime('%Y-%m-%d')
@@ -385,7 +385,7 @@ def update_trip_index(base_filename):
     outputText = baseText[:index - 10] + date + baseText[index:]
 
     #update trip report link
-    fileNames = os.listdir("../" + directories[3])
+    fileNames = os.listdir("../" + directories[0])
     tripReportLink = ""
     for file in fileNames:
         if(tripReportLink < file):
