@@ -408,7 +408,6 @@ def make_lists():
 
     #current project
     list_of_peaks("list_of_oregon_101.html", "project_lists/OR101", "OR101")
-    list_of_peaks("list_of_long_covid_list.html", "project_lists/LCL", "LCL")
 
     #eastern vs western
     #list_of_peaks("list_of_eastern.html", "all/eastern_all", "EAST")
