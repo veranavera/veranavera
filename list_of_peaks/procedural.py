@@ -51,6 +51,7 @@ list_types = {
     "LCL": 20,
     "NCA56": 11,
     "OR101": 11,
+    "NW300": 11,
     "ULTRA": 12,
     "P3K": 13,
     "P2K": 14,
@@ -86,6 +87,7 @@ project_lists = {
     "LCL": "../../project_lists/LCL/list_of_peaks_date_reverse.html",
     "OR101": "../../project_lists/OR101/list_of_peaks_prominence.html",
     "OR101a": "../../project_lists/OR101/list_of_peaks_prominence.html",
+    
 }
 #define eastern/western regions of North America
     #with true meaning eastern and vice versa
@@ -289,7 +291,7 @@ def list_of_peaks(base_filename, directory, list):
         htmlData += csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, False, list, listNumber)
         htmlData += add_footer()
 
-        f = open(directory + "\list_of_peaks_" + type + ".html", "w")
+        f = open(directory + "\\list_of_peaks_" + type + ".html", "w")
         f.write(htmlData)
         f.close()
 
@@ -299,7 +301,7 @@ def list_of_peaks(base_filename, directory, list):
         htmlData += csv_reader(sortTypes, sortCounter, sortCounters, sortOrders, True, list, listNumber)
         htmlData += add_footer()
 
-        f = open(directory + "\list_of_peaks_" + type + "_reverse.html", "w")
+        f = open(directory + "\\list_of_peaks_" + type + "_reverse.html", "w")
         f.write(htmlData)
         f.close()
 
@@ -391,6 +393,8 @@ def update_trip_index(base_filename):
         if(tripReportLink < file):
             tripReportLink = file
 
+print(os.listdir())
+
 #update main page
 update_main_page("../index.html")
 
@@ -404,18 +408,19 @@ def make_lists():
 
     #current project
     list_of_peaks("list_of_oregon_101.html", "project_lists/OR101", "OR101")
+    list_of_peaks("list_of_long_covid_list.html", "project_lists/LCL", "LCL")
 
     #eastern vs western
     #list_of_peaks("list_of_eastern.html", "all/eastern_all", "EAST")
-    list_of_peaks("list_of_western.html", "all/western_all", "WEST")
+    #list_of_peaks("list_of_western.html", "all/western_all", "WEST")
     list_of_peaks("list_of_oregon.html", "state_lists/oregon_all", "OR")
-    list_of_peaks("list_of_california.html", "state_lists/california_all", "CA")
+    #list_of_peaks("list_of_california.html", "state_lists/california_all", "CA")
 
 
     #all lists of prominence/location classes
     list_of_peaks("list_of_p1ks.html", "all/all_p1k", "P1K")
     list_of_peaks("list_of_p2ks.html", "all/all_p2k", "P2K")
-    list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
+    #list_of_peaks("list_of_p3ks.html", "all/all_p3k", "P3K")
     #list_of_peaks("list_of_ultras.html", "all/all_ultra", "ULTRA")
 make_lists()
 
